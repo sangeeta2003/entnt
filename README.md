@@ -14,8 +14,8 @@ Before running this project, make sure you have:
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
-cd <project-folder>
+git clone <https://github.com/sangeeta2003/entnt>
+cd <entnt>
 ```
 
 ### 2. Backend Setup
