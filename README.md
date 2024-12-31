@@ -99,14 +99,16 @@ curl -X POST http://localhost:5000/api/auth/create-initial-admin \
 ### Backend (.env)
 - `PORT`: Server port (default: 5000)
 - `MONGODB_URI`: MongoDB connection string
-- `JWT_SECRET`: Secret key for JWT token generation
-- `FRONTEND_URL`: Frontend application URL
+- `JWT_SECRET`: your_jwt_secret
+- `FRONTEND_URL`: [Frontend application URL](http://localhost:3000)
 - `EMAIL_USERNAME`: Gmail address for sending emails
-- `EMAIL_PASSWORD`: Gmail app password
-- `ADMIN_CREATE_KEY`: Secret key for creating admin users
+- `EMAIL_PASSWORD`: your_app_password
+- `EMAIL_FROM_NAME`=Your App Name 
+- `ADMIN_CREATE_KEY`: your_secure_admin_key_here
+- `ADMIN_EMAIL`=admin@yourdomain.com 
 
 ### Frontend (.env)
-- `REACT_APP_API_URL`: Backend API URL
+- `REACT_APP_API_URL`: [Backend API URL](http://localhost:5000/api)
 
 ## Common Issues & Solutions
 
