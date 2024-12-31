@@ -1,0 +1,9 @@
+export { default as Dashboard } from './Dashboard';
+export { default as UserManagement } from './UserManagement';
+export { default as CompanyManagement } from './CompanyManagement';
+export { default as SystemSettings } from './SystemSettings';
+export { default as SecuritySettings } from './SecuritySettings';
+export { default as AnalyticsConfig } from './AnalyticsConfig';
+export { default as NotificationSettings } from './NotificationSettings';
+export { default as AuditLogs } from './AuditLogs';
+export { default as CommunicationMethodManagement } from './CommunicationMethodManagement'; 
