@@ -77,7 +77,8 @@ curl -X POST http://localhost:5000/api/auth/create-initial-admin \
 -H "Content-Type: application/json" \
 -d '{
   "email": "newadmin@admin.com",
-  "password": "Admin@123"
+  "password": "Admin@123",
+   "adminKey": "your_secure_admin_key_here"
   
 }'
 ```
