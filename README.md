@@ -85,6 +85,29 @@ curl -X POST http://localhost:5000/api/auth/create-initial-admin \
 
 2. Login with the admin credentials at [http://localhost:3000/login](http://localhost:3000/login).
 
+
+3. Register a new user using the `/api/auth/register` endpoint:
+```bash
+curl -X POST http://localhost:5000/api/auth/register \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Test User",
+  "email": "user@entnt.com",
+  "password": "User@2024"
+}'
+```
+
+4. Sign up a new user using the `/api/auth/signup` endpoint:
+```bash
+curl -X POST http://localhost:5000/api/auth/signup \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Test User",
+  "email": "user@entnt.com",
+  "password": "User@2024"
+}'
+```
+
 ## Features
 
 - User Authentication (Login/Register)
