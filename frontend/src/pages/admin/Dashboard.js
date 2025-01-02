@@ -749,10 +749,10 @@ const Dashboard = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
+      className="container p-2"
     >
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-3">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
           Dashboard Overview
         </h1>
@@ -761,29 +761,102 @@ const Dashboard = () => {
         </p>
       </div>
 
-      {/* Add Filter Controls */}
-      <FilterControls />
+      {/* Filter Controls */}
+      <div className="card mb-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Date Range */}
+          <div className="form-group">
+            <label className="block text-sm font-medium mb-1">Date Range</label>
+            <div className="flex gap-2">
+              <DatePicker
+                selected={dateRange.start}
+                onChange={(date) => setDateRange({ ...dateRange, start: date })}
+                className="w-full p-2 border rounded-md"
+                placeholderText="Start Date"
+              />
+              <DatePicker
+                selected={dateRange.end}
+                onChange={(date) => setDateRange({ ...dateRange, end: date })}
+                className="w-full p-2 border rounded-md"
+                placeholderText="End Date"
+              />
+            </div>
+          </div>
+
+          {/* Company Select */}
+          <div className="form-group">
+            <label className="block text-sm font-medium mb-1">Company</label>
+            <select
+              value={selectedCompany}
+              onChange={(e) => setSelectedCompany(e.target.value)}
+              className="w-full p-2 border rounded-md"
+            >
+              <option value="all">All Companies</option>
+              {companies.map(company => (
+                <option key={company.id} value={company.id}>{company.name}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Communication Method */}
+          <div className="form-group">
+            <label className="block text-sm font-medium mb-1">
+              Communication Method
+            </label>
+            <select
+              value={communicationMethod}
+              onChange={(e) => setCommunicationMethod(e.target.value)}
+              className="w-full p-2 border rounded-md"
+            >
+              <option value="all">All Methods</option>
+              <option value="email">Email</option>
+              <option value="linkedin">LinkedIn</option>
+              <option value="phone">Phone</option>
+              <option value="meeting">Meeting</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          {/* Download buttons */}
+          <div className="flex flex-col sm:flex-row gap-2">
+            <button
+              onClick={() => handleDownload('pdf')}
+              className="btn btn-primary"
+            >
+              <ArrowDownTrayIcon className="w-5 h-5 mr-2" />
+              PDF Report
+            </button>
+            <button
+              onClick={() => handleDownload('csv')}
+              className="btn btn-success"
+            >
+              <ArrowDownTrayIcon className="w-5 h-5 mr-2" />
+              CSV Export
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+      <div className="dashboard-stats mb-3">
         {stats.map((stat) => (
           <motion.div
             key={stat.name}
             whileHover={{ scale: 1.02 }}
-            className="bg-white dark:bg-gray-800 overflow-hidden rounded-lg shadow"
+            className="card"
           >
-            <div className="p-5">
+            <div className="p-2">
               <div className="flex items-center">
-                <div className={`flex-shrink-0 rounded-md p-3 ${stat.color}`}>
+                <div className={`rounded-md p-3 ${stat.color}`}>
                   <stat.icon className="h-6 w-6 text-white" />
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
-                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+                    <dt className="text-sm font-medium text-gray-500 truncate">
                       {stat.name}
                     </dt>
                     <dd className="flex items-baseline">
-                      <div className="text-2xl font-semibold text-gray-900 dark:text-white">
+                      <div className="text-2xl font-semibold">
                         {stat.value}
                       </div>
                       <div className={`ml-2 flex items-baseline text-sm font-semibold ${
@@ -806,15 +879,15 @@ const Dashboard = () => {
       </div>
 
       {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-3">
         <CommunicationFrequencyChart />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white dark:bg-gray-800 rounded-lg shadow p-6"
+          className="card"
         >
-          <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
+          <h2 className="text-lg font-semibold mb-4">
             Communication Activity
           </h2>
           <div className="h-64">
@@ -832,92 +905,25 @@ const Dashboard = () => {
             />
           </div>
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="bg-white dark:bg-gray-800 rounded-lg shadow p-6"
-        >
-          <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
-            Communication Methods
-          </h2>
-          <div className="h-64">
-            <Bar
-              data={companyEngagement}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                  legend: {
-                    display: false
-                  }
-                }
-              }}
-            />
-          </div>
-        </motion.div>
       </div>
 
-      {/* Add Engagement Effectiveness */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-gray-800 rounded-lg shadow p-6"
-        >
-          <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
-            Engagement Effectiveness
-          </h2>
-          <div className="h-64">
-            <Bar data={engagementData} options={{
-              responsive: true,
-              maintainAspectRatio: false,
-              scales: {
-                y: {
-                  beginAtZero: true,
-                  max: 100,
-                  ticks: {
-                    callback: value => `${value}%`
-                  }
-                }
-              }
-            }} />
-          </div>
-        </motion.div>
-
-        {/* Add Overdue Trends */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-gray-800 rounded-lg shadow p-6"
-        >
-          <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
-            Overdue Communication Trends
-          </h2>
-          <div className="h-64">
-            <Line data={overdueData} options={{
-              responsive: true,
-              maintainAspectRatio: false
-            }} />
-          </div>
-        </motion.div>
+      {/* Activity Log */}
+      <div className="card mb-3">
+        <ActivityLogSection 
+          data={filteredData}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+        />
       </div>
 
-      {/* Replace the old activity log with the new one */}
-      <ActivityLogSection 
-        data={filteredData}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-      />
-
+      {/* Download Section */}
       <DownloadSection />
 
-      {/* Add Engagement Metrics Section */}
+      {/* Engagement Metrics */}
       <EngagementMetricsSection data={filteredData} />
 
-      {/* Add new metrics section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+      {/* Additional Metrics */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-3">
         <OverdueTrendsChart data={filteredData} />
         <CommunicationEffectivenessChart data={filteredData} />
       </div>

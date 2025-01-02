@@ -140,12 +140,12 @@ const CommunicationMethodManagement = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
+      className="container mx-auto px-4 py-6"
     >
       {/* Header */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
             Communication Methods
           </h1>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -160,7 +160,7 @@ const CommunicationMethodManagement = () => {
             setFormData({ name: '', description: '', isMandatory: false });
             setIsModalOpen(true);
           }}
-          className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
+          className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
         >
           <PlusIcon className="h-5 w-5 mr-2" />
           Add Method
@@ -194,23 +194,23 @@ const CommunicationMethodManagement = () => {
                         snapshot.isDragging ? 'shadow-lg' : ''
                       }`}
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-4">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div className="flex items-center space-x-4 w-full sm:w-auto">
                           <div className="cursor-move">
                             <div className="h-10 w-10 rounded-lg bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
                               <ChatBubbleLeftRightIcon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                             </div>
                           </div>
-                          <div>
-                            <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
                               {method.name}
                             </h3>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                            <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
                               {method.description}
                             </p>
                           </div>
                         </div>
-                        <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-4 w-full sm:w-auto justify-end">
                           {method.isMandatory ? (
                             <CheckCircleIcon className="h-5 w-5 text-green-500" title="Mandatory" />
                           ) : (
@@ -226,13 +226,13 @@ const CommunicationMethodManagement = () => {
                               });
                               setIsModalOpen(true);
                             }}
-                            className="text-gray-400 hover:text-gray-500"
+                            className="text-gray-400 hover:text-gray-500 p-2"
                           >
                             <PencilIcon className="h-5 w-5" />
                           </button>
                           <button
                             onClick={() => handleDelete(method._id)}
-                            className="text-red-400 hover:text-red-500"
+                            className="text-red-400 hover:text-red-500 p-2"
                           >
                             <TrashIcon className="h-5 w-5" />
                           </button>
@@ -261,7 +261,7 @@ const CommunicationMethodManagement = () => {
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.95 }}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 w-full max-w-md"
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-4 sm:p-6 w-full max-w-md mx-4"
             >
               <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
                 {editingMethod ? 'Edit Method' : 'Add New Method'}
@@ -306,17 +306,17 @@ const CommunicationMethodManagement = () => {
                   </label>
                 </div>
 
-                <div className="flex justify-end space-x-4">
+                <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4 pt-4">
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                    className="w-full sm:w-auto px-4 py-2 text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white border border-gray-300 rounded-lg"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                    className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                   >
                     {editingMethod ? 'Update Method' : 'Add Method'}
                   </button>

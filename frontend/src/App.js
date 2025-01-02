@@ -9,6 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import SignupPage from './pages/SignupPage';
 import ForgetPassword from './pages/ForgotPasswordPage'
 import { AuthProvider } from './context/AuthContext';
+import './styles/responsive.css';
 
 // User Pages
 import {
