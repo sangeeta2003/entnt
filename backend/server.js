@@ -17,16 +17,49 @@ mongoose.set('strictQuery', false);
 
 // Middleware
 const corsOptions = {
-  origin: [
-    'http://localhost:3000',
-    'https://entnt-7nrd-i1igi796x-sangeeta-mishras-projects.vercel.app'
-  ],
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'https://entnt-7nrd-i1igi796x-sangeeta-mishras-projects.vercel.app',
+      'https://entnt-7nrd.vercel.app' // Add any other variations of your Vercel domain
+    ];
+    
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('Blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: [
+    'Content-Type', 
+    'Authorization', 
+    'X-Requested-With',
+    'Accept',
+    'Origin'
+  ],
+  exposedHeaders: ['Content-Range', 'X-Content-Range'],
+  maxAge: 86400 // 24 hours
 };
 
 app.use(cors(corsOptions));
+
+// Add these headers to all responses
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
+  next();
+});
+
+// Handle OPTIONS requests
+app.options('*', cors(corsOptions));
 
 // Body parser middleware
 app.use(express.json());
