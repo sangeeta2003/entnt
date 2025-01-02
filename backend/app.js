@@ -2,7 +2,7 @@ const cors = require('cors');
 const analyticsRoutes = require('./routes/analytics');
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Your frontend URL
+  origin: '*', // Your frontend URL
   credentials: true
 }));
 
