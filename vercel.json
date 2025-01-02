@@ -1,0 +1,41 @@
+
+
+
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "frontend/build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/$1"
+    }
+  ],
+  "env": {
+    "PORT": "5000",
+    "EMAIL_USERNAME": "your_email@gmail.com",
+    "EMAIL_PASSWORD": "your_app_password",
+    "EMAIL_FROM_NAME": "Your App Name",
+    "ADMIN_CREATE_KEY": "your_secure_admin_key_here",
+    "ADMIN_EMAIL": "admin@yourdomain.com",
+    "MONGODB_URI": "mongodb+srv://mishrasangeeta944:sangeeta2024@cluster0.ik8t0.mongodb.net/",
+    "JWT_SECRET": "your_jwt_secret",
+    "FRONTEND_URL": "http://localhost:3000",
+    "NODE_ENV": "production"
+  }
+}
