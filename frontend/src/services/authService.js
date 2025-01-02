@@ -19,7 +19,7 @@ export const authService = {
     } catch (error) {
       console.error('Registration error:', error);
       if (error.code === 'ERR_CONNECTION_REFUSED') {
-        throw { message: 'Unable to connect to server. Please check if the server is running.' };
+        console.log("hello")
       }
       throw error.response?.data || { message: 'Registration failed. Please try again.' };
     }
